@@ -1,20 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace ExamTwoCodeQuestions.Data
 {
-    public class Cobbler : IOrderItem
+    public class Cobbler : IOrderItem, INotifyPropertyChanged
     {
+        private FruitFilling fruit;
         /// <summary>
         /// The fruit used in the cobbler
         /// </summary>
-        public FruitFilling Fruit { get; set; }
-
+        public FruitFilling Fruit
+        {
+            get {
+                return fruit;
+                    }
+            set
+            {
+                
+                OnPropertyChanged("Fruit");
+            }
+        }
         /// <summary>
         /// If the cobbler is served with ice cream
         /// </summary>
-        public bool WithIceCream { get; set; } = true;
+        public bool WithIceCream { 
+            get {
+                return withIceCream;
+            } 
+            set { 
+                withIceCream = value;
+                OnPropertyChanged("Price");
+                OnPropertyChanged("WithIceCream");
+            }
+        }
+        private bool withIceCream = true;
+        void OnPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SpecialInstructions"));
+        }
 
+        
         /// <summary>
         /// Gets the price of the Cobbler
         /// </summary>
@@ -38,5 +65,7 @@ namespace ExamTwoCodeQuestions.Data
                 else { return new List<string>() { "Hold Ice Cream" }; }
             }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ExamTwoCodeQuestions.Data;
 
 namespace ExamTwoQuestions.PointOfSale
 {
@@ -21,6 +22,46 @@ namespace ExamTwoQuestions.PointOfSale
         public CustomizeCobblerControl()
         {
             InitializeComponent();
+        }
+        void OnRadioButtonChanged(object sender, RoutedEventArgs e)
+        {
+            if(DataContext is Cobbler cobbler)
+            {
+                if(cobbler.Fruit == FruitFilling.Blueberry)
+                {
+                    BlueberryFillingButton.IsChecked = true;
+                }
+                 else if (cobbler.Fruit == FruitFilling.Cherry)
+                {
+                    CherryFillingButton.IsChecked = true;
+                }
+                else 
+                {
+                    PeachFillingButton.IsChecked = true;
+                }
+            }
+        }
+        void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(DataContext is Cobbler cobbler)
+            {
+                if (sender is RadioButton r)
+                {
+
+                    if (r.Tag.Equals("Blueberry"))
+                    {
+                        cobbler.Fruit=FruitFilling.Blueberry;
+                    }
+                    else if (r.Tag.Equals("Cherry"))
+                    {
+                        cobbler.Fruit=FruitFilling.Cherry;
+                    }
+                    else 
+                    {
+                        cobbler.Fruit = FruitFilling.Peach;
+                    }
+                }
+            }
         }
     }
 }
