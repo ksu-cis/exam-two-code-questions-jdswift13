@@ -18,9 +18,11 @@ namespace ExamTwoCodeQuestions.Data
             set
             {
                 
+                fruit = value;
                 OnPropertyChanged("Fruit");
             }
         }
+        
         /// <summary>
         /// If the cobbler is served with ice cream
         /// </summary>
